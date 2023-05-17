@@ -9,7 +9,7 @@ app.listen( process.env.PORT ||  3000);
 
 app.get('/', function(req, res){
     console.log("Acessando /");
-    res.send('Hello world')});
+    res.send('Hello Mundo')});
 
 /*
   Servidor propriamente dito
