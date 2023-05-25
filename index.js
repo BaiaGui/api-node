@@ -15,20 +15,20 @@ app.get('/', function(req, res){
   Servidor propriamente dito
 */
 
-const notes = [
-    {id: 0, title: "Meu Primeiro Título", description : "Minha Primeira Descrição"},
-    {id: 1, title: "Meu Segundo Título", description : "Minha Segunda Descrição"}
+const groups = [
+    {id: 0, name: "Nome do grupo", members: []},
+    {id: 1, name: "Outro nome do grupo", members: []}
 ]
 
-const endpoint = "/notes";
+const endpoint = "/groups";
 
 app.get(endpoint, function(req, res){
-    res.send(notes.filter(Boolean));
+    res.send(groups.filter(Boolean));
 });
 
 app.get(`${endpoint}/:id`, function(req, res){
     const id = req.params.id;
-    const note = notes[id];
+    const note = groups[id];
 
     if (!note){
         res.send("{}");
@@ -39,11 +39,11 @@ app.get(`${endpoint}/:id`, function(req, res){
 
 app.post(endpoint, (req, res) => {
     const note = {
-        id : notes.length,
-        title : req.body["title"],
-        description : req.body["description"]
+        id : groups.length,
+        name : req.body["name"],
+        members: req.body["members"]
     };
-    notes.push(note);
+    groups.push(note);
     res.send("1");
 
 });
@@ -52,18 +52,17 @@ app.put(`${endpoint}/:id`, (req, res) =>{
     const id = parseInt(req.params.id);
     const note = {
         id : id,
-        title : req.body["title"],
-        description : req.body["description"]
+        name : req.body["name"],
+        members: req.body["members"]
     };
 
-    notes[id] = note;
+    groups[id] = note;
     res.send("1");
-
 });
 
 app.delete(`${endpoint}/:id`, (req, res) => {
     const id = req.params.id;
-    delete notes[id];
+    delete groups[id];
     res.send("1");
 
 });
